@@ -3,10 +3,10 @@
 import {useEffect, useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {doc, getDoc, getFirestore} from "firebase/firestore";
+import {doc, getDoc} from "firebase/firestore";
 import {Power, PowerOff} from "lucide-react";
 
-import {firebaseApp} from "../firebase";
+import {db} from "../firebase";
 
 interface ChatTypes {
   chat: any;
@@ -24,8 +24,6 @@ interface ChatUserType {
 
 const Chat = ({chat, currentUser}: ChatTypes) => {
   const [chatUser, setChatUser] = useState<ChatUserType>();
-
-  const db = getFirestore(firebaseApp);
 
   useEffect(() => {
     const unsubscribe = async () => {

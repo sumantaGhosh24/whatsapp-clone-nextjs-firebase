@@ -2,18 +2,17 @@
 
 import {useState, useEffect} from "react";
 import {useRouter} from "next/navigation";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {onAuthStateChanged} from "firebase/auth";
 import {
   collection,
   doc,
   getDoc,
-  getFirestore,
   onSnapshot,
   query,
   where,
 } from "firebase/firestore";
 
-import {firebaseApp} from "@/firebase";
+import {auth, db} from "@/firebase";
 import Navbar from "@/components/navbar";
 import AddChat from "@/components/add-chat";
 import Chat from "@/components/chat";
@@ -31,9 +30,6 @@ export default function Home() {
   });
   const [chats, setChats] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
-
-  const auth = getAuth(firebaseApp);
-  const db = getFirestore(firebaseApp);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {

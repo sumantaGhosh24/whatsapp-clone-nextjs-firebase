@@ -3,10 +3,10 @@
 import {useState, useEffect} from "react";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
-import {doc, getDoc, getFirestore} from "firebase/firestore";
+import {doc, getDoc} from "firebase/firestore";
 import {Power, PowerOff, MoveLeft} from "lucide-react";
 
-import {firebaseApp} from "@/firebase";
+import {db} from "@/firebase";
 
 import {Button} from "./ui/button";
 
@@ -35,7 +35,6 @@ const ChatHeader = ({messageId, currentUser}: ChatHeaderType) => {
   const [chatUser, setChatUser] = useState<ChatUserType>();
   const [chat, setChat] = useState<ChatType>();
 
-  const db = getFirestore(firebaseApp);
   const router = useRouter();
 
   useEffect(() => {

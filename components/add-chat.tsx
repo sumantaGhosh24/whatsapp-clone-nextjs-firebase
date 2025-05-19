@@ -2,16 +2,9 @@
 
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {MessageSquarePlus} from "lucide-react";
-import {
-  collection,
-  getFirestore,
-  limit,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import {collection, limit, onSnapshot, query, where} from "firebase/firestore";
 
-import {firebaseApp} from "@/firebase";
+import {db} from "@/firebase";
 
 import {Button} from "./ui/button";
 import FindUser from "./find-user";
@@ -26,8 +19,6 @@ interface AddChatProps {
 const AddChat = ({open, setOpen, user, username}: AddChatProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
-
-  const db = getFirestore(firebaseApp);
 
   useEffect(() => {
     if (searchQuery.trim() === "") {

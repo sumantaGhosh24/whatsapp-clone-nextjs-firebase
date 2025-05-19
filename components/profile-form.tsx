@@ -6,17 +6,11 @@ import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
-import {
-  doc,
-  getDoc,
-  getFirestore,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
+import {onAuthStateChanged} from "firebase/auth";
+import {doc, getDoc, serverTimestamp, setDoc} from "firebase/firestore";
 import {toast} from "react-toastify";
 
-import {firebaseApp} from "@/firebase";
+import {auth, db} from "@/firebase";
 import {uploadImage} from "@/storage";
 import {ProfileValidation} from "@/lib/validation/user";
 
@@ -47,9 +41,6 @@ const ProfileForm = () => {
   const {userId, name, username, bio, avatar} = user;
 
   const router = useRouter();
-
-  const auth = getAuth(firebaseApp);
-  const db = getFirestore(firebaseApp);
 
   const form = useForm<z.infer<typeof ProfileValidation>>({
     resolver: zodResolver(ProfileValidation),

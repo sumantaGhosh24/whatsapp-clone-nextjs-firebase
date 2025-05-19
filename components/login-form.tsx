@@ -5,20 +5,11 @@ import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import {
-  doc,
-  getFirestore,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
+import {onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth";
+import {doc, serverTimestamp, updateDoc} from "firebase/firestore";
 import {toast} from "react-toastify";
 
-import {firebaseApp} from "@/firebase";
+import {auth, db} from "@/firebase";
 import {LoginValidation} from "@/lib/validation/user";
 
 import {
@@ -34,9 +25,6 @@ import {Button} from "./ui/button";
 
 const LoginForm = () => {
   const router = useRouter();
-
-  const auth = getAuth(firebaseApp);
-  const db = getFirestore(firebaseApp);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {

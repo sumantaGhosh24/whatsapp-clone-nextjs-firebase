@@ -7,12 +7,11 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   onAuthStateChanged,
 } from "firebase/auth";
 import {toast} from "react-toastify";
 
-import {firebaseApp} from "@/firebase";
+import {auth} from "@/firebase";
 import {RegisterValidation} from "@/lib/validation/user";
 
 import {
@@ -28,8 +27,6 @@ import {Button} from "./ui/button";
 
 const RegisterForm = () => {
   const router = useRouter();
-
-  const auth = getAuth(firebaseApp);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {

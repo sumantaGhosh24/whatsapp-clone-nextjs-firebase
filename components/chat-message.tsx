@@ -5,13 +5,12 @@ import {
   collection,
   doc,
   getDoc,
-  getFirestore,
   onSnapshot,
   orderBy,
   query,
 } from "firebase/firestore";
 
-import {firebaseApp} from "@/firebase";
+import {db} from "@/firebase";
 
 import Message from "./message";
 
@@ -33,8 +32,6 @@ interface ChatUserType {
 const ChatMessage = ({messageId, currentUser, chatId}: ChatMessageType) => {
   const [message, setMessage] = useState<any[]>([]);
   const [chatUser, setChatUser] = useState<ChatUserType>();
-
-  const db = getFirestore(firebaseApp);
 
   useEffect(() => {
     const unsubscribe = async () => {

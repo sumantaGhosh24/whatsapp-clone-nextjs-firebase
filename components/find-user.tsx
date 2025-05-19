@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   addDoc,
   collection,
-  getFirestore,
   onSnapshot,
   query,
   serverTimestamp,
@@ -15,7 +14,7 @@ import {Plus, UserCheck2} from "lucide-react";
 import {toast} from "react-toastify";
 
 import {Button} from "./ui/button";
-import {firebaseApp} from "../firebase";
+import {db} from "../firebase";
 import {encryptWithAES} from "../lib/encrypt-decrypt";
 
 interface User {
@@ -38,8 +37,6 @@ const FindUser = ({
   setOpen,
 }: User) => {
   const [exists, setExists] = useState(false);
-
-  const db = getFirestore(firebaseApp);
 
   const unsubscribe = async () => {
     const chatQuery = query(

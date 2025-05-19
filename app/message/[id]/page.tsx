@@ -3,13 +3,13 @@
 import {useState, useEffect} from "react";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
-import {doc, getDoc, getFirestore} from "firebase/firestore";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {doc, getDoc} from "firebase/firestore";
+import {onAuthStateChanged} from "firebase/auth";
 
 import ChatHeader from "@/components/chat-header";
 import ChatInput from "@/components/chat-input";
 import ChatMessage from "@/components/chat-message";
-import {firebaseApp} from "@/firebase";
+import {auth, db} from "@/firebase";
 
 interface MessageProps {
   params: {id: string};
@@ -34,9 +34,6 @@ export default function Message({params}: MessageProps) {
   const [chat, setChat] = useState<ChatType>();
 
   const router = useRouter();
-
-  const auth = getAuth();
-  const db = getFirestore(firebaseApp);
 
   const messageId = params.id;
 
